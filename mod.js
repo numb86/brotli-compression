@@ -1,6 +1,13 @@
 import init, { compress_by_brotli } from "./pkg/compress.js";
 
-await init(Deno.readFile("./pkg/compress_bg.wasm"));
+if (Deno.env.get("ENVIRONMENT") === "production") {
+  const res = await fetch(
+    "https://raw.githubusercontent.com/numb86/brotli-compression/main/pkg/compress_bg.wasm"
+  );
+  await init(await res.arrayBuffer());
+} else {
+  await init(Deno.readFile("./pkg/compress_bg.wasm"));
+}
 
 addEventListener("fetch", async (event) => {
   if (event.request.method !== "GET") {
