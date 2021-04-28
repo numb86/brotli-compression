@@ -58,7 +58,7 @@ addEventListener("fetch", async (event) => {
   }
 
   const isTargetResource = ((contentTypeFieldValue) => {
-    const ALLOW_LIST = [/^text\//, /^application\/json/];
+    const ALLOW_LIST = [/^text\//, /^application\/json/, /^application\/xml/];
     return ALLOW_LIST.some((reg) => contentTypeFieldValue.match(reg));
   })(response.headers.get("content-type"));
 
