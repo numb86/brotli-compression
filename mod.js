@@ -77,7 +77,7 @@ addEventListener("fetch", async (event) => {
     if (!varyFieldValue) {
       vary = "Accept-Encoding";
     } else {
-      const hasAcceptEncoding = varyFieldValue.includes("accept-encoding");
+      const hasAcceptEncoding = varyFieldValue.includes("Accept-Encoding");
       vary = hasAcceptEncoding
         ? varyFieldValue
         : `${varyFieldValue}, Accept-Encoding`;
@@ -94,7 +94,7 @@ addEventListener("fetch", async (event) => {
       new Response(body, {
         status: 200,
         headers: {
-          customHeader,
+          ...customHeader,
           vary,
           "content-encoding": "br",
         },
